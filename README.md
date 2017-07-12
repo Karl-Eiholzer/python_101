@@ -4,7 +4,7 @@
 Learning basic python with my buds.
 
 Contentes:
- - Project 1: Hello World
+ - Project_1: Write a basic python app that will say "Hello World"
 
 Author:   Karl Eiholzer
 Created:  2017 07 11
