@@ -3,8 +3,8 @@
 
 Learning basic python with my buds.
 
-Contentes:
- - Project_1: Write a basic python app that will say "Hello World"
+Contents:
+ - Project_1: Write a basic python app that will say "Hello World" (and maybe something more...)
 
 Author:   Karl Eiholzer
 Created:  2017 07 11
