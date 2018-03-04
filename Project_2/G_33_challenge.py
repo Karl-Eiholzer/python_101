@@ -7,19 +7,7 @@ from Functions.g_33_functions import yield_round, dollar_price_round, accrued_in
 
 '''Set loop parameters'''
 run = 1
-
-
-def inputNumber(message):
-  while True:
-    try:
-       userInput = int(input(message))       
-    except ValueError:
-       print("Not an integer! Try again.")
-       continue
-    else:
-       return userInput 
-       break 
-    
+  
 def main():
     'Main Control Function'
     print('')
