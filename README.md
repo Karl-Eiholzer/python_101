@@ -9,6 +9,6 @@ Contents:
  - MA_I_Data: _Reading MA--I Files_: large project to ultimately look for MA-I filings on SEC's EDGAR site and download them for further analysis
 
 <br>
-*Author:*   Karl Eiholzer <br>
-*Created:*  2017 07 11 <br>
-*Updated:*  2018 07 30 <br>
+**Author:**   Karl Eiholzer <br>
+**Created:**  2017 07 11 <br>
+**Updated:**  2018 07 30 <br>
