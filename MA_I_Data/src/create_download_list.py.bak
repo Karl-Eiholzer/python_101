@@ -1,0 +1,43 @@
+'''Import necessary libraries'''
+
+import time
+from functions.hello_world import say_hello, check_if_string
+
+'''Body'''
+
+'''Set loop parameters'''
+run = 1
+ 
+
+def main():
+    'Main Control Function'
+    print('')
+    person_greeted = input('Who would you like to say hello to? ')
+    text_valid = check_if_string(person_greeted)
+    if text_valid == "FALSE":
+      print('')
+      print('You entered an invalid character')
+      print('Only alpha characters are accepted')
+      print('')
+    else:
+      display_greeting = say_hello(person_greeted)
+      time.sleep(0.5)
+      print('')
+      print('')
+      print(display_greeting)
+      print('')    
+      time.sleep(0.5)
+      
+while run == 1:
+    repeat_greeting = input('Go again? (Y or N): ')
+    if repeat_greeting == 'N' or repeat_greeting == 'n':
+        print('')
+        print('You are bored already?')
+        print('Good bye!!')
+        print('')
+        run = 0
+    elif repeat_greeting.upper() == 'Y':
+        main()
+    else:
+        print('Do you want to go or not? Try again')
+

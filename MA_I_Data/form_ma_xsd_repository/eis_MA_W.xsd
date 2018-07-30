@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by aa (Keane Federal Systems) -->
+<xs:schema xmlns="http://www.sec.gov/edgar/mawfiler" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.sec.gov/edgar/common" xmlns:ns2="http://www.sec.gov/edgar/common_ma" xmlns:ns3="http://www.sec.gov/edgar/common_drp" targetNamespace="http://www.sec.gov/edgar/mawfiler" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.sec.gov/edgar/common" schemaLocation="eis_Common.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/common_ma" schemaLocation="eis_Common_MA.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/common_drp" schemaLocation="eis_Common_DRP.xsd"/>
+	<!-- Begin Common HEADER_DATA -->
+	<xs:simpleType name="SUBMISSION_TYPE">
+		<xs:annotation>
+			<xs:documentation>
+            Type of submission you are filing.  Choose a value from the appropriate family of
+            Submission Types.  
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="MA-W"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HEADER_DATA">
+		<xs:sequence>
+			<xs:element name="submissionType" type="SUBMISSION_TYPE"/>
+			<xs:element name="filerInfo" type="ns2:HEADER_DATA"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- End Common HEADER_DATA -->
+	<xs:complexType name="NAME_ADDRESS_PHONE">
+		<xs:sequence>
+			<xs:element name="individualName" type="ns2:INDIVIDUAL_NAME_NO_SUFIX_TYPE" minOccurs="0"/>
+			<xs:element name="name" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="addressInfo" type="ns2:ADDRESS_TYPE"/>
+			<xs:element name="phoneNumber" type="ns1:PHONE_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CONTACT_PERSON_ADVISORY_FIRM">
+		<xs:sequence>
+			<xs:element name="nameAddressPhone" type="NAME_ADDRESS_PHONE"/>
+			<xs:element name="title" type="ns1:STRING_60_TYPE" minOccurs="0"/>
+			<xs:element name="email" type="ns1:INTERNET_ADDRESS_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LOCATION_INFO">
+		<xs:sequence>
+			<xs:element name="nameAddressPhone" type="NAME_ADDRESS_PHONE"/>
+			<xs:element name="description" type="ns1:STRING_255_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PERSON_AND_LOCATION">
+		<xs:sequence>
+			<xs:element name="personInfo" type="NAME_ADDRESS_PHONE"/>
+			<xs:element name="locationInfo" type="LOCATION_INFO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADVISORY_CONTRACT_ASSIGNMENTS">
+		<xs:sequence>
+			<xs:element name="advisoryContract" type="NAME_ADDRESS_PHONE" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BOOKS_AND_RECORDS">
+		<xs:sequence>
+			<xs:element name="personLocation" type="PERSON_AND_LOCATION" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EXECUTION_BLOCK">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="naturalPersonMuncipal" type="ns1:SIGNATURE_TYPE_3"/>
+				<xs:element name="soleProprietor" type="ns1:SIGNATURE_TYPE_3"/>
+				<xs:element name="muncipalAdvisoryFirm" type="ns1:SIGNATURE_TYPE_3"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Begin Balance Sheet elements -->
+	<xs:complexType name="CURRENT_ASSET">
+		<xs:sequence>
+			<xs:element name="cash" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="securitiesAtMarket" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="nonMarketableSecurities" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="otherCurrentAssets" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="totalCurrentAssets" type="ns2:DECIMAL_TYPE16_2_NON_NEGATIVE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ASSET_INFORMATION">
+		<xs:sequence>
+			<xs:element name="currentAssets" type="CURRENT_ASSET"/>
+			<xs:element name="totalFixedAsset" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="totalAsset" type="ns2:DECIMAL_TYPE16_2_NON_NEGATIVE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CURRENT_LIABILITES">
+		<xs:sequence>
+			<xs:element name="prepaidAdvisoryFees" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="shortTermLoansFromClients" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="otherShortTermLoans" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="otherCurrentLiabilities" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="totalCurrentLiabilities" type="ns2:DECIMAL_TYPE16_2_NON_NEGATIVE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FIXED_LIABILITIES">
+		<xs:sequence>
+			<xs:element name="longTermDebtOwed" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="otherLongTermDebt" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="otherLongTermLiabilities" type="ns2:DECIMAL_TYPE16_2"/>
+			<xs:element name="totalFixedLiabilities" type="ns2:DECIMAL_TYPE16_2_NON_NEGATIVE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LIABILITIES_SHAREHOLDER_EQUITIES">
+		<xs:sequence>
+			<xs:element name="currentLiabilties" type="CURRENT_LIABILITES"/>
+			<xs:element name="fixedLiabilities" type="FIXED_LIABILITIES"/>
+			<xs:element name="totalShareholdersEquity" type="ns2:DECIMAL_TYPE16_2_NEGATIVE"/>
+			<xs:element name="totalLiabiltiesAndShareholdersEquity" type="ns2:DECIMAL_TYPE16_2_NEGATIVE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Begin Balance Sheet elements -->
+	<xs:complexType name="BALANCE_SHEET">
+		<xs:sequence>
+			<xs:element name="assetInfo" type="ASSET_INFORMATION"/>
+			<xs:element name="liabiltyAndSharholdersEquityInfo" type="LIABILITIES_SHAREHOLDER_EQUITIES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_DATA">
+		<xs:sequence>
+			<xs:element name="fullLegalName" type="ns1:ENTITY_NAME_TYPE"/>
+			<xs:element name="fileNumber" type="ns1:FILE_NUMBER_TYPE"/>
+			<xs:element name="contactPersonInfo" type="CONTACT_PERSON_ADVISORY_FIRM"/>
+			<xs:element name="amountOwedForPreppaidServices" type="ns2:DECIMAL_TYPE16_2" minOccurs="0"/>
+			<xs:element name="amountOwedFromBorrowedFunds" type="ns2:DECIMAL_TYPE16_2" minOccurs="0"/>
+			<!-- Begin Schedule W1 Section 4 -->
+			<xs:element name="isAdvisoryContract" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="advisoryContractAssignments" type="ADVISORY_CONTRACT_ASSIGNMENTS" minOccurs="0"/>
+			<!-- End Schedule W1 Section 4-->
+			<xs:element name="isUnsatisfiedJudgementsOrLiens" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isReceivedAnyPrepaidFee" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isBorrowedNotRepaid" type="ns1:YES_NO_TYPE"/>
+			<!-- Begin Schedule W1 Section 6 -->
+			<xs:element name="booksAndRecords" type="BOOKS_AND_RECORDS"/>
+			<!-- End Schedule W1 Section 6-->
+			<xs:element name="execution" type="EXECUTION_BLOCK"/>
+			<!-- Begin Schedule W2 Section 7-->
+			<xs:element name="statementOfFinancials" type="BALANCE_SHEET" minOccurs="0"/>
+			<!-- End Schedule W2 Section 7-->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="edgarSubmission">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="schemaVersion" type="ns1:SCHEMA_VERSION_TYPE" minOccurs="0"/>
+				<xs:element name="headerData" type="HEADER_DATA"/>
+				<xs:element name="formData" type="FORM_DATA"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

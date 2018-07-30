@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2012 sp1 (http://www.altova.com) by GK (Keane Federal Systems) -->
+<xs:schema xmlns="http://www.sec.gov/edgar/mafiler" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.sec.gov/edgar/common" xmlns:ns2="http://www.sec.gov/edgar/common_ma" xmlns:ns3="http://www.sec.gov/edgar/ma_drp" targetNamespace="http://www.sec.gov/edgar/mafiler" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.sec.gov/edgar/common" schemaLocation="eis_Common.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/common_ma" schemaLocation="eis_Common_MA.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/ma_drp" schemaLocation="eis_MA_DRP.xsd"/>
+	<!-- Begin Common HEADER_DATA -->
+	<xs:simpleType name="SUBMISSION_TYPE">
+		<xs:annotation>
+			<xs:documentation>
+            Type of submission you are filing.  Choose a value from the appropriate family of
+            Submission Types.  
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="MA"/>
+			<xs:enumeration value="MA-A"/>
+			<xs:enumeration value="MA/A"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HEADER_DATA">
+		<xs:sequence>
+			<xs:element name="submissionType" type="SUBMISSION_TYPE"/>
+			<xs:element name="filerInfo" type="ns2:HEADER_DATA"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- End Common HEADER_DATA -->
+	<!-- Begin FORM_DATA -->
+	<xs:complexType name="SOLE_PROPRIETOR">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:INDIVIDUAL_NAME_TYPE"/>
+			<xs:element name="crdNumber" type="ns2:CRD_NUMBER_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OTHER_TITLES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="title" type="ns1:STRING_150_TYPE" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PERSON_TYPE">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:INDIVIDUAL_NAME_TYPE"/>
+			<xs:element name="titles" type="OTHER_TITLES_CONTAINER" minOccurs="0"/>
+			<xs:element name="address" type="ns2:ADDRESS_TYPE" minOccurs="0"/>
+			<xs:element name="crdNumber" type="ns2:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="phoneNumber" type="ns1:PHONE_TYPE"/>
+			<xs:element name="faxNumber" type="ns1:PHONE_TYPE" minOccurs="0"/>
+			<xs:element name="email" type="ns1:INTERNET_ADDRESS_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BUSINESS_CONDUCTED_OTHER_NAME">
+		<xs:sequence>
+			<xs:element name="addDeleteAmend" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<!--Can't use ns2:NAME_AND_JURISDICTION because of jurisdiction field requirements -->
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="jurisdictions" type="ns2:STRING_10K_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BUSINESS_CONDUCTED_OTHER_NAMES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="businessConductedOtherName" type="BUSINESS_CONDUCTED_OTHER_NAME" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDITIONAL_REGISTRATION">
+		<xs:sequence>
+			<xs:element name="nameAndRegistration" type="ns2:NAME_AND_REGISTRATION"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDITIONAL_REGISTRATIONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="additionalRegistration" type="ADDITIONAL_REGISTRATION" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDITIONAL_OFFICE">
+		<xs:sequence>
+			<xs:element name="addDeleteAmend" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="officeInfo" type="PRINCIPAL_OFFICE_INFO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDITIONAL_OFFICES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="additionalOffice" type="ADDITIONAL_OFFICE" maxOccurs="5"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDITIONAL_WEB_ADDRESS">
+		<xs:sequence>
+			<xs:element name="addDeleteAmend" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="webAddress" type="ns2:WEBSITE_URL_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDITIONAL_WEB_ADDRESSES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="additionalWebAddress" type="ADDITIONAL_WEB_ADDRESS" maxOccurs="50"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LOCATION_TYPE">
+		<xs:choice>
+			<xs:element name="branchOrAffiliate" default="branchOrAffiliate"/>
+			<xs:element name="third-party" default="third-party"/>
+			<xs:element name="other" default="other"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="LOCATION_BOOKS_RECORD">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="locationName" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="contact" type="PRINCIPAL_OFFICE_INFO"/>
+			<xs:element name="locationType" type="LOCATION_TYPE"/>
+			<xs:element name="description" type="ns2:STRING_256_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LOCATION_BOOKS_RECORDS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="booksAndRecordsLocation" type="LOCATION_BOOKS_RECORD" maxOccurs="5"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FOREIGN_REGULATORY_AUTHORITY_REGISTRATION">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="englishFFRAName" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="foreignRegNumber" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="englishCountryName" type="ns1:NON_US_COUNTRY_CODES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FOREIGN_REGULATORY_AUTHORITY_REGISTRATION_CONTAINER">
+		<xs:sequence>
+			<xs:element name="foreignRegulatoryAuthorityRegistration" type="FOREIGN_REGULATORY_AUTHORITY_REGISTRATION" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JURISDICTION">
+		<xs:choice>
+			<xs:element name="US_Federal" default="US_Federal"/>
+			<xs:element name="US_State" type="ns1:US_STATE_CODES"/>
+			<xs:element name="ForeignCountry" type="ns1:NON_US_COUNTRY_CODES"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="APPLICABLE_REGISTRATION">
+		<xs:sequence>
+			<xs:element name="issuingAgencyName" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="registrationNumber" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="jurisdiction" type="JURISDICTION"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BUSINESS_AFFILIATE">
+		<xs:sequence>
+			<xs:element name="affiliateName" type="ns2:ENTITY_NAME_256_TYPE"/>
+			<xs:element name="hasApplicableRegistration" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="applicableRegistration" type="APPLICABLE_REGISTRATION" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BUSINESS_AFFILIATES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="businessAffiliate" type="BUSINESS_AFFILIATE" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MA_BASE_REGISTRATIONS">
+		<xs:sequence>
+			<xs:element name="maRegistration" type="ns2:REG_TYPE_1" minOccurs="0"/>
+			<xs:element name="baseRegistrations" type="ns2:BASE_REGISTRATIONS" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MA_REGISTRATIONS">
+		<xs:sequence>
+			<xs:element name="maTregistration" type="ns2:REG_TYPE_1" minOccurs="0"/>
+			<xs:element name="baseRegistrations" type="MA_BASE_REGISTRATIONS" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SUCCESSIONS">
+		<xs:sequence>
+			<xs:element name="baseRegistrations" type="MA_BASE_REGISTRATIONS" minOccurs="0"/>
+			<xs:element name="nameOfFirm" type="ns2:STRING_256_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PRINCIPAL_OFFICE_INFO">
+		<xs:sequence>
+			<xs:element name="addressInfo" type="ns2:ADDRESS_TYPE" minOccurs="0"/>
+			<xs:element name="phoneNumber" type="ns1:PHONE_TYPE"/>
+			<xs:element name="faxNumber" type="ns1:PHONE_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SOLICITING_MAC_FIRM">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="cik" type="ns1:CIK_TYPE" minOccurs="0"/>
+			<xs:element name="crd" type="ns1:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="contactInfo" type="PRINCIPAL_OFFICE_INFO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SOLICITING_MAC_FIRMS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="solicitingMACFirm" type="SOLICITING_MAC_FIRM" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDEPENDENT_BUSINESS_EMPLOYEE">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:INDIVIDUAL_NAME_NO_SUFIX_TYPE"/>
+			<xs:element name="cik" type="ns1:CIK_TYPE" minOccurs="0"/>
+			<xs:element name="crd" type="ns1:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="contactInfo" type="PRINCIPAL_OFFICE_INFO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDEPENDENT_BUSINESS_EMPLOYEES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="independentBusinessEmployee" type="INDEPENDENT_BUSINESS_EMPLOYEE" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="CLIENT_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Municipal Entities"/>
+			<xs:enumeration value="Non-profit organizations"/>
+			<xs:enumeration value="Corporations or other businesses"/>
+			<xs:enumeration value="Other"/>
+			<xs:enumeration value="Not Applicable"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CLIENT_TYPES">
+		<xs:sequence>
+			<xs:element name="clientTypes" type="CLIENT_TYPE" maxOccurs="5"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TYPES_OF_CLIENTS">
+		<xs:sequence>
+			<xs:element name="typesOfClients" type="CLIENT_TYPES"/>
+			<xs:element name="typesOfClientsOther" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_ORG_TYPE">
+		<xs:choice>
+			<xs:element name="Corporation" default="Corporation"/>
+			<xs:element name="Sole_Proprietorship" default="Sole Proprietorship"/>
+			<xs:element name="LLP" default="LLP"/>
+			<xs:element name="Partnership" default="Partnership"/>
+			<xs:element name="LLC" default="LLC"/>
+			<xs:element name="LP" default="LP"/>
+			<xs:element name="Other" default="Other"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="FORM_ORG_TYPES">
+		<xs:sequence>
+			<xs:element name="formOrgTypes" type="FORM_ORG_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_OF_ORGANIZATION">
+		<xs:sequence>
+			<xs:element name="formOrgType" type="FORM_ORG_TYPES"/>
+			<xs:element name="formOrgOtherDescription" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="SOLICITATION_PERSON_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Public pension funds"/>
+			<xs:enumeration value="529 Plans"/>
+			<xs:enumeration value="Local government investment pools"/>
+			<xs:enumeration value="State government investment pools"/>
+			<xs:enumeration value="Hospitals"/>
+			<xs:enumeration value="Colleges"/>
+			<xs:enumeration value="Other"/>
+			<xs:enumeration value="Not Applicable"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SOLICITATION_PERSON_TYPES">
+		<xs:sequence>
+			<xs:element name="solicitationPersonTypes" type="SOLICITATION_PERSON_TYPE" maxOccurs="8"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SUCCESSIONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="dateOfSuccession" type="ns1:DATE_TYPE"/>
+			<xs:element name="successions" type="SUCCESSIONS" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TYPES_OF_SOLICITED_PERSONS">
+		<xs:sequence>
+			<xs:element name="solicitationPersonTypes" type="SOLICITATION_PERSON_TYPES"/>
+			<xs:element name="spOtherDescription" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="COMPENSATION_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Hourly Charges"/>
+			<xs:enumeration value="Fixed Fees"/>
+			<xs:enumeration value="Contingent Fees"/>
+			<xs:enumeration value="Subscription Fees"/>
+			<xs:enumeration value="Not Applicable"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="COMPENSATION_TYPES">
+		<xs:sequence>
+			<xs:element name="compensationTypes" type="COMPENSATION_TYPE" maxOccurs="6"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MA_COMPENSATION_TYPES">
+		<xs:sequence>
+			<xs:element name="compensationTypes" type="COMPENSATION_TYPES"/>
+			<xs:element name="COMP_TYPE_OTHER_DESCRIPTION" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ENGAGED_ACTIVITY_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Advice Insurance Of MS"/>
+			<xs:enumeration value="Advice Investment Of Proceeds MS"/>
+			<xs:enumeration value="Advice ME Investments"/>
+			<xs:enumeration value="Advice ME Other Investments"/>
+			<xs:enumeration value="Advice Guaranteed IC"/>
+			<xs:enumeration value="Advice Use Of MD"/>
+			<xs:enumeration value="Solicitation Of IAB"/>
+			<xs:enumeration value="Solicitation Other"/>
+			<xs:enumeration value="Advice On Selection"/>
+			<xs:enumeration value="Brokerage Of MEI"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ENGAGED_ACTIVITIES_TYPE">
+		<xs:sequence>
+			<xs:element name="engagedActivityType" type="ENGAGED_ACTIVITY_TYPE" maxOccurs="11"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ENGAGED_ACTIVITY_TYPES">
+		<xs:sequence>
+			<xs:element name="engagedActivityTypes" type="ENGAGED_ACTIVITIES_TYPE"/>
+			<xs:element name="eaTypeOtherDescription" type="ns2:STRING_10K_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE">
+		<xs:sequence>
+			<xs:element name="isActivelyEngaged" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isPrimaryBusiness" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_JURISDICTION_TYPE">
+		<xs:sequence>
+			<xs:element name="activelyEngagedPrimaryBusiness" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="licensedJurisdictions" type="ns2:STRING_10K_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OTHER_ACTIVITY_TYPES">
+		<xs:sequence>
+			<xs:element name="brokerDealers" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="registeredBrokerDealerReps" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="commodityPoolOperator" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="commidityTA" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="futuresCommissionMerchant" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="majorSwapParticipant" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="majorSBSwapParticipant" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="swapDealers" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="swapDealersSecurityBased" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="trustCompany" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="realEstate" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="insurance" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="bankingThrift" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="investmentAdvisor" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="lawyers" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_JURISDICTION_TYPE" minOccurs="0"/>
+			<xs:element name="accounting" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_JURISDICTION_TYPE" minOccurs="0"/>
+			<xs:element name="engineering" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_TYPE" minOccurs="0"/>
+			<xs:element name="otherFinancialProductAdvisor" type="ACTIVELY_ENGAGED_PRIMARY_BUSINESS_JURISDICTION_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FIA_ASSOCIATED_PERSON_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Broker-dealer municipal securities dealer or government securities broker or dealer"/>
+			<xs:enumeration value="Investment Company"/>
+			<xs:enumeration value="Investment Adviser"/>
+			<xs:enumeration value="Swap Dealer"/>
+			<xs:enumeration value="Security-based swap dealer"/>
+			<xs:enumeration value="Major swap participant"/>
+			<xs:enumeration value="Major security-based swap participant"/>
+			<xs:enumeration value="Commodity pool operator"/>
+			<xs:enumeration value="Commodity trading advisor"/>
+			<xs:enumeration value="Futures commission merchant"/>
+			<xs:enumeration value="Banking/Thrift institution"/>
+			<xs:enumeration value="Trust Company"/>
+			<xs:enumeration value="Accountant or accounting firm"/>
+			<xs:enumeration value="Lawyer or law firm"/>
+			<xs:enumeration value="Insurance company or agency"/>
+			<xs:enumeration value="Pension consultant"/>
+			<xs:enumeration value="Real estate broker or dealer"/>
+			<xs:enumeration value="Sponsor or syndicator of limited partnerships"/>
+			<xs:enumeration value="Engineer or engineering firm"/>
+			<xs:enumeration value="Other municipal advisor"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FIA_ASSOCIATED_PERSON_TYPES">
+		<xs:sequence>
+			<xs:element name="fiaAPTypes" type="FIA_ASSOCIATED_PERSON_TYPE" maxOccurs="20"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FFRA_REGISTRATION">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="registrationNum" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="country" type="ns1:NON_US_COUNTRY_CODES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FFRA_REGISTRATIONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="ffraRegistration" type="FFRA_REGISTRATION" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OTHER_MUNICIPAL_ADVISER">
+		<xs:sequence>
+			<xs:element name="isControlOrControlled" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isUnderCommonControl" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isRegisteredWithFFRA" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="ffraRegistrations" type="FFRA_REGISTRATIONS_CONTAINER" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FIA_ASSOCIATED_PERSON">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="apTypes" type="FIA_ASSOCIATED_PERSON_TYPES"/>
+			<xs:element name="legalName" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="primaryBusinessName" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="otherMunicipalAdviser" type="OTHER_MUNICIPAL_ADVISER" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FIA_ASSOCIATED_PERSONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="fiaAssociatedPerson" type="FIA_ASSOCIATED_PERSON" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PARTICIPATION_INTEREST_IN_MACT">
+		<xs:sequence>
+			<xs:element name="mactBuySellFromClients" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactBuySellRecommendToClients" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactEnterDerivativesWithClients" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactRecommendOwnedInterestToClients" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactRecommendToClientsServing" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactRecommendToClientsHavingOtherSalesInterest" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactDiscAuthBuySellAsMAA" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactDiscAuthBuySell" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactDiscAuthDetermineBrokerDealer" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactDiscAuthDetermineBrokerDealerAreAP" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="mactDiscAuthDetermineCommissionToBrokerDealer" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactRecommendBrokerDealerToClient" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactRecommendBrokerDealerToClientAreAP" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="mactCompensateForReferrals" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mactReceiveCompensationForReferrals" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES">
+		<xs:sequence>
+			<xs:element name="effectiveDate" type="ns1:DATE_TYPE" minOccurs="0"/>
+			<xs:element name="terminationDate" type="ns1:DATE_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_REG_TYPE_1">
+		<xs:sequence>
+			<xs:element name="regInfo" type="ns2:REG_TYPE_1"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_REG_TYPE_2">
+		<xs:sequence>
+			<xs:element name="regInfo" type="ns2:REG_TYPE_2"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_REG_TYPE_3">
+		<xs:sequence>
+			<xs:element name="regInfo" type="ns2:REG_TYPE_3"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_REG_TYPE_4">
+		<xs:sequence>
+			<xs:element name="regInfo" type="ns2:REG_TYPE_4"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_REG_TYPE_5">
+		<xs:sequence>
+			<xs:element name="regInfo" type="ns2:REG_TYPE_5"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_REG_TYPE_6">
+		<xs:sequence>
+			<xs:element name="regInfo" type="ns2:REG_TYPE_6"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_FIRM_IA_REG">
+		<xs:sequence>
+			<xs:element name="sec" type="NON_SCHEDULEABC_REG_TYPE_2" minOccurs="0"/>
+			<xs:element name="state" type="NON_SCHEDULEABC_REG_TYPE_3" minOccurs="0"/>
+			<xs:element name="exemptAdvisor" type="NON_SCHEDULEABC_REG_TYPE_2" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_FIRM_MAADVISOR">
+		<xs:sequence>
+			<xs:element name="ma" type="NON_SCHEDULEABC_REG_TYPE_1" minOccurs="0"/>
+			<xs:element name="maTregistration" type="NON_SCHEDULEABC_REG_TYPE_1" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_CONTROLLING_PERSON_FIRM">
+		<xs:sequence>
+			<xs:element name="nameOfFirm" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="maAdvisor" type="NON_SCHEDULEABC_FIRM_MAADVISOR" minOccurs="0"/>
+			<xs:element name="mSecDealer" type="NON_SCHEDULEABC_REG_TYPE_1" minOccurs="0"/>
+			<xs:element name="brokerDealer" type="NON_SCHEDULEABC_REG_TYPE_2" minOccurs="0"/>
+			<xs:element name="investmentAdvisor" type="NON_SCHEDULEABC_FIRM_IA_REG" minOccurs="0"/>
+			<xs:element name="gsBrokerDealer" type="NON_SCHEDULEABC_REG_TYPE_4" minOccurs="0"/>
+			<xs:element name="otherReg" type="NON_SCHEDULEABC_REG_TYPE_5" minOccurs="0"/>
+			<xs:element name="anotherReg" type="NON_SCHEDULEABC_REG_TYPE_6" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_CONTROLLING_PERSON_NATURAL">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:INDIVIDUAL_NAME_NO_SUFIX_TYPE"/>
+			<xs:element name="cik" type="ns1:CIK_TYPE" minOccurs="0"/>
+			<xs:element name="crd" type="ns2:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="dateInfo" type="NON_SCHEDULEABC_FIRM_REGISTRATION_DATES" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_CONTROLLING_PERSON">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:choice>
+				<xs:element name="nonScheduleABCControlPersonFirm" type="NON_SCHEDULEABC_CONTROLLING_PERSON_FIRM"/>
+				<xs:element name="nonScheduleABCControlPersonNatural" type="NON_SCHEDULEABC_CONTROLLING_PERSON_NATURAL"/>
+			</xs:choice>
+			<xs:element name="description" type="ns2:STRING_10K_TYPE"/>
+			<xs:element name="contact" type="PRINCIPAL_OFFICE_INFO"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NON_SCHEDULEABC_CONTROLLING_PERSONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="nonScheduleABCControllingPerson" type="NON_SCHEDULEABC_CONTROLLING_PERSON" maxOccurs="100"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="SECTION_12_15D_REPORTING_SCHEDULE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Schedule A"/>
+			<xs:enumeration value="Schedule B"/>
+			<xs:enumeration value="Schedule C Section 4"/>
+			<xs:enumeration value="Schedule C Section 5"/>
+			<xs:enumeration value="Schedule D Section 8-A"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SECTION_12_15D_REPORTING_SCHEDULES">
+		<xs:sequence>
+			<xs:element name="reportingSchedule" type="SECTION_12_15D_REPORTING_SCHEDULE" maxOccurs="5"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SECTION_12_15D_PUBLIC_REPORTING_COMPANY">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="cik" type="ns1:CIK_TYPE"/>
+			<xs:element name="reportingSchedules" type="SECTION_12_15D_REPORTING_SCHEDULES"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SECTION_12_15D_PUBLIC_REPORTING_COMPANIES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="section1215DPublicReportingCompany" type="SECTION_12_15D_PUBLIC_REPORTING_COMPANY" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DISCLOSURE_QUESTIONS">
+		<xs:sequence>
+			<xs:element name="criminalDisclosure" type="ns2:CRIMINAL_ACTION_DISCLOSURE"/>
+			<xs:element name="regulatoryDisclosure" type="ns2:REGULATORY_ACTION_DISCLOSURE"/>
+			<xs:element name="civilDisclosure" type="ns2:CIVIL_JUDICIAL_ACTION_DISCLOSURE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="INTEGER_TYPE_4">
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OWNERSHIP_CODE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="B"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="D"/>
+			<xs:enumeration value="E"/>
+			<xs:enumeration value="F"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OWNING_ENTITY_DE_FE_NP">
+		<xs:choice>
+			<xs:element name="de" default="DE"/>
+			<xs:element name="fe" default="FE"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="OWNING_ENTITY_BASE">
+		<xs:sequence>
+			<xs:element name="titleStatus" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="statusAcquired" type="ns1:DATE_TYPE"/>
+			<xs:element name="ownershipCode" type="OWNERSHIP_CODE"/>
+			<xs:element name="isControPerson" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="crdNumber" type="ns1:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="foreignBusIdNo" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DIRECT_OWNER_BUSINESS">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="controPersonPR" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="empIDNumber" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="deFeNp" type="OWNING_ENTITY_DE_FE_NP"/>
+			<xs:element name="irsNum" type="ns1:TAX_ID_TYPE" minOccurs="0"/>
+			<xs:element name="baseInformation" type="OWNING_ENTITY_BASE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DIRECT_OWNERS_BUSINESSES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="business" type="DIRECT_OWNER_BUSINESS" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DIRECT_OWNER_PERSON">
+		<xs:sequence>
+			<xs:element name="name" type="ns2:INDIVIDUAL_NAME_NO_SUFIX_TYPE"/>
+			<xs:element name="dob" type="ns1:DATE_TYPE" minOccurs="0"/>
+			<xs:element name="ssNum" type="ns2:SS_NUM_TYPE" minOccurs="0"/>
+			<xs:element name="baseInformation" type="OWNING_ENTITY_BASE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DIRECT_OWNERS_PERSONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="person" type="DIRECT_OWNER_PERSON" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DIRECT_OWNERS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="businesses" type="DIRECT_OWNERS_BUSINESSES_CONTAINER" minOccurs="0"/>
+			<xs:element name="persons" type="DIRECT_OWNERS_PERSONS_CONTAINER" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDIRECT_OWNER_BUSINESS">
+		<xs:sequence>
+			<xs:element name="owningEntity" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="baseInfo" type="DIRECT_OWNER_BUSINESS"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDIRECT_OWNERS_BUSINESSES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="business" type="INDIRECT_OWNER_BUSINESS" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDIRECT_OWNER_PERSON">
+		<xs:sequence>
+			<xs:element name="owningEntity" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="baseInfo" type="DIRECT_OWNER_PERSON"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDIRECT_OWNERS_PERSONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="person" type="INDIRECT_OWNER_PERSON" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDIRECT_OWNERS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="businesses" type="INDIRECT_OWNERS_BUSINESSES_CONTAINER" minOccurs="0"/>
+			<xs:element name="persons" type="INDIRECT_OWNERS_PERSONS_CONTAINER" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_DIRECT_OWNER_BUSINESS">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="baseInformation" type="DIRECT_OWNER_BUSINESS"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_DIRECT_OWNERS_BUSINESSES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="business" type="AMENDED_DIRECT_OWNER_BUSINESS" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_DIRECT_OWNER_PERSON">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="baseInformation" type="DIRECT_OWNER_PERSON"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_DIRECT_OWNERS_PERSONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="person" type="AMENDED_DIRECT_OWNER_PERSON" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_INDIRECT_OWNER_BUSINESS">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="baseInformation" type="INDIRECT_OWNER_BUSINESS"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_INDIRECT_OWNERS_BUSINESSES_CONTAINER">
+		<xs:sequence>
+			<xs:element name="business" type="AMENDED_INDIRECT_OWNER_BUSINESS" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_INDIRECT_OWNER_PERSON">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="baseInformation" type="INDIRECT_OWNER_PERSON"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AMENDED_INDIRECT_OWNERS_PERSONS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="person" type="AMENDED_INDIRECT_OWNER_PERSON" maxOccurs="200"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INDIRECT_DIRECT_OWNERS_CONTAINER">
+		<xs:sequence>
+			<xs:element name="directBusinesses" type="AMENDED_DIRECT_OWNERS_BUSINESSES_CONTAINER" minOccurs="0"/>
+			<xs:element name="directPersons" type="AMENDED_DIRECT_OWNERS_PERSONS_CONTAINER" minOccurs="0"/>
+			<xs:element name="indirectBusinesses" type="AMENDED_INDIRECT_OWNERS_BUSINESSES_CONTAINER" minOccurs="0"/>
+			<xs:element name="indirectPersons" type="AMENDED_INDIRECT_OWNERS_PERSONS_CONTAINER" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SCHEDULE_D_ITEMS">
+		<xs:sequence>
+			<xs:element name="type" type="ns2:ADD_DELETE_AMEND" minOccurs="0"/>
+			<xs:element name="misc" type="ns2:STRING_10K_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MA_EXECUTION">
+		<xs:sequence>
+			<!-- We may need to add an element for the full legal name of Municipal Advisor (Firm). -->
+			<xs:element name="signature" type="ns1:SIGNATURE_TYPE_3"/>
+			<xs:element name="crdNumber" type="ns2:CRD_NUMBER_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_CONTROLS">
+		<xs:sequence>
+			<xs:element name="isSolePropietor" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasNameChange" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasDBAName" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasPreviousDBAName" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasAdditionalDBANames" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasMATReg" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="additionalRegs" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="additionalOffices" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasMailingAddress" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasAdditionalWebsites" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasBooksRecords" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isRegisteredFFRA" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isAffiliatedOtherBus" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="independentBusinessEmployee" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="receiveCompensationForMAAFromOtherClients" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isSucceedingApplicant" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isCPForApplicantPolicy" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isPRCompanyUnder1215" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isCPForFirm" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasOtherProductTypes" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="wasSanctionsOrdered" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="moneytarySanctions" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="hasScheduleB" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isSection12Or15ReportingCompany" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="isOtherNonMAABuisinesssPrimary" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_DATA">
+		<xs:sequence>
+			<!-- Begin fields only applicable to MA-A -->
+			<xs:element name="fiscalYearEnd" type="ns1:DATE_TYPE" minOccurs="0"/>
+			<xs:element name="calYearEnd" type="ns1:YEAR_TYPE" minOccurs="0"/>
+			<xs:element name="hasChanges" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<!-- End fields only applicable to MA-A -->
+			<!-- Begin Item 1 elements -->
+			<xs:element name="firmName" type="ns1:ENTITY_NAME_TYPE"/>
+			<xs:element name="firmCrdNumber" type="ns2:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="soleProprietor" type="SOLE_PROPRIETOR" minOccurs="0"/>
+			<xs:element name="previousLegalName" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="dbaName" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="previousDbaName" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<!-- 
+			The pressence of the element will satisfy the flag
+			<xs:element name="hasAdditionalNames" type="ns1:YES_NO_TYPE"/>
+			-->
+			<!-- Begin Schedule D Section 1-B -->
+			<xs:element name="businessConductedOtherNames" type="BUSINESS_CONDUCTED_OTHER_NAMES_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-B -->
+			<xs:element name="irsNum" type="ns1:TAX_ID_TYPE" minOccurs="0"/>
+			<xs:element name="ssNum" type="ns2:SS_NUM_TYPE" minOccurs="0"/>
+			<xs:element name="registrations" type="MA_REGISTRATIONS" minOccurs="0"/>
+			<!-- 
+			The pressence of the element will satisfy the flag
+			<xs:element name="hasAdditionalRegs" type="ns1:YES_NO_TYPE"/>
+			-->
+			<!-- Begin Schedule D Section 1-D -->
+			<xs:element name="additionalRegistrations" type="ADDITIONAL_REGISTRATIONS_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-D -->
+			<xs:element name="principalOfficeAddress" type="PRINCIPAL_OFFICE_INFO"/>
+			<!-- 
+			The pressence of the element will satisfy the flag
+			<xs:element name="hasAdditionalOffices" type="ns1:YES_NO_TYPE"/>
+			-->
+			<!-- Begin Schedule D Section 1-E -->
+			<xs:element name="additionalOffices" type="ADDITIONAL_OFFICES_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-E -->
+			<xs:element name="mailingAddressDifferent" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="mailingAddress" type="ns2:ADDRESS_TYPE" minOccurs="0"/>
+			<!-- 
+			The pressence of the element will satisfy the flag
+			<xs:element name="hasWebAddress" type="ns1:YES_NO_TYPE"/>
+			-->
+			<!-- Begin Schedule D Section 1-F -->
+			<xs:element name="primaryWebAddress" type="ns2:WEBSITE_URL_TYPE" minOccurs="0"/>
+			<xs:element name="additionalWebAddresses" type="ADDITIONAL_WEB_ADDRESSES_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-F -->
+			<xs:element name="cco" type="PERSON_TYPE" minOccurs="0"/>
+			<xs:element name="contactPerson" type="PERSON_TYPE" minOccurs="0"/>
+			<!-- Begin Schedule D Section 1-I -->
+			<xs:element name="booksAndRecordsLocations" type="LOCATION_BOOKS_RECORDS_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-I -->
+			<!-- Begin Schedule D Section 1-J -->
+			<xs:element name="foreignRegulatoryAuthorityRegistrations" type="FOREIGN_REGULATORY_AUTHORITY_REGISTRATION_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-J -->
+			<!-- Begin Schedule D Section 1-K -->
+			<xs:element name="businessAffiliates" type="BUSINESS_AFFILIATES_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule D Section 1-K -->
+			<!-- End Item 1 elements -->
+			<!-- Begin Item 2 elements -->
+			<xs:element name="formOfOrganization" type="FORM_OF_ORGANIZATION" minOccurs="0"/>
+			<xs:element name="monthOfFiscalYearEnd" type="ns2:MONTH_TYPE" minOccurs="0"/>
+			<xs:element name="organizedJurisdiction" type="ns1:STATE_COUNTRY_TYPE" minOccurs="0"/>
+			<xs:element name="dateOfOrganization" type="ns1:DATE_TYPE"/>
+			<xs:element name="isPrcApplicant" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="prcCIK" type="ns1:CIK_TYPE" minOccurs="0"/>
+			<!--<xs:element name="prcName" type="ns1:ENTITY_NAME_TYPE" minOccurs="0"/>-->
+			<!-- End Item 2 elements -->
+			<!-- Begin Item 3 elements -->
+			<xs:element name="successionInfo" type="SUCCESSIONS_CONTAINER" minOccurs="0"/>
+			<!-- End Item 3 elements -->
+			<!-- Begin Item 4 elements -->
+			<xs:element name="numberOfEmployees" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="numberOfAdditionalWebSites" type="ns1:STRING_50_TYPE" minOccurs="0"/>
+			<xs:element name="employeesEngagedInMAA" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="maaEmployeesRegBD" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="maaRegIA" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="numberOfSolicitingFirms" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="solicitingMACFirms" type="SOLICITING_MAC_FIRMS_CONTAINER" minOccurs="0"/>
+			<xs:element name="numberOfIndBusinessEmployees" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="independentBusinessEmployees" type="INDEPENDENT_BUSINESS_EMPLOYEES_CONTAINER" minOccurs="0"/>
+			<xs:element name="clientsServedAsMA" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="typesOfClients" type="TYPES_OF_CLIENTS" minOccurs="0"/>
+			<xs:element name="numberOfSolicitedME" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="numberOfSolicitedOP" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="totalNumberOfSolicitedMEAndOP" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="typesOfSolicitedPersons" type="TYPES_OF_SOLICITED_PERSONS" minOccurs="0"/>
+			<xs:element name="meOrOPCompensationTypes" type="MA_COMPENSATION_TYPES" minOccurs="0"/>
+			<xs:element name="solicitationCompensationTypes" type="MA_COMPENSATION_TYPES" minOccurs="0"/>
+			<xs:element name="receiveCompensationForMAAFromOtherClientsExplanation" type="ns2:STRING_10K_TYPE" minOccurs="0"/>
+			<xs:element name="engagedActivities" type="ENGAGED_ACTIVITY_TYPES" minOccurs="0"/>
+			<!-- End Item 4 elements -->
+			<!-- Begin Item 5 elements -->
+			<xs:element name="otherActivities" type="OTHER_ACTIVITY_TYPES" minOccurs="0"/>
+			<xs:element name="isEngagedInOtherNonMAABusiness" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="otherNonMAABusinessPrimaryDescription" type="ns2:STRING_10K_TYPE" minOccurs="0"/>
+			<!-- End Item 5 elements -->
+			<!-- Begin Item 6 elements -->
+			<xs:element name="fiaAssociatedPersonsTypes" type="FIA_ASSOCIATED_PERSON_TYPES" minOccurs="0"/>
+			<xs:element name="totalFIAAssociatedPersons" type="ns1:STRING_NUMERIC_3_TYPE" minOccurs="0"/>
+			<xs:element name="fiaAssociatedPersons" type="FIA_ASSOCIATED_PERSONS_CONTAINER" minOccurs="0"/>
+			<!-- End Item 6 elements -->
+			<!-- Begin Item 7 elements -->
+			<xs:element name="participationInterestMACT" type="PARTICIPATION_INTEREST_IN_MACT"/>
+			<!-- End Item 7 elements -->
+			<!-- Begin Item 8 elements -->
+			<xs:element name="nonScheduleABCControllingPersons" type="NON_SCHEDULEABC_CONTROLLING_PERSONS_CONTAINER" minOccurs="0"/>
+			<xs:element name="section1215DPublicReportingCompanies" type="SECTION_12_15D_PUBLIC_REPORTING_COMPANIES_CONTAINER" minOccurs="0"/>
+			<xs:element name="miscellaneous" type="ns2:STRING_10K_TYPE" minOccurs="0"/>
+			<!-- End Item 8 elements -->
+			<!-- Begin Item 9 elements -->
+			<xs:element name="disclosureAnswers" type="DISCLOSURE_QUESTIONS"/>
+			<!-- End Item 9 elements -->
+			<!-- Begin Item 10 elements -->
+			<xs:element name="hasAnnualReceiptsLessThan7Million" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isAffiliatedWithReceiptsMoreThan7Million" type="ns1:YES_NO_TYPE"/>
+			<!-- End Item 10 elements -->
+			<!-- Begin Schedule A elements -->
+			<xs:element name="scheduleA" type="DIRECT_OWNERS_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule A elements -->
+			<!-- Begin Schedule B elements -->
+			<xs:element name="scheduleB" type="INDIRECT_OWNERS_CONTAINER" minOccurs="0"/>
+			<!-- End Schedule B elements -->
+			<!-- Begin Schedule C elements -->
+			<xs:element name="scheduleC" type="INDIRECT_DIRECT_OWNERS_CONTAINER" minOccurs="0"/>
+			<!-- DRPs -->
+			<xs:element name="drpInfo" type="ns3:DRP_INFO_TYPE" minOccurs="0"/>
+			<!-- End Schedule C elements -->
+			<!-- Sched D items -->
+			<xs:element name="scheduleD" type="SCHEDULE_D_ITEMS" minOccurs="0"/>
+			<xs:element name="maSelfCertification" type="MA_EXECUTION" minOccurs="0"/>
+			<xs:element name="maExecutionPage" type="MA_EXECUTION"/>
+			<xs:element name="maNRSelfCertification" type="MA_EXECUTION" minOccurs="0"/>
+			<xs:element name="maNRExecutionPage" type="MA_EXECUTION" minOccurs="0"/>
+			<xs:element name="documents" type="ns1:EDGAR_DOCUMENT_TYPE" minOccurs="0" maxOccurs="1000"/>
+			<!-- Controls -->
+			<xs:element name="controls" type="FORM_CONTROLS" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- End FORM_DATA -->
+	<xs:element name="edgarSubmission">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="schemaVersion" type="ns1:SCHEMA_VERSION_TYPE" minOccurs="0"/>
+				<xs:element name="headerData" type="HEADER_DATA"/>
+				<xs:element name="formData" type="FORM_DATA"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2012 sp1 (http://www.altova.com) by GK (Keane Federal Systems) -->
+<xs:schema xmlns="http://www.sec.gov/edgar/maifiler" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.sec.gov/edgar/common" xmlns:ns2="http://www.sec.gov/edgar/common_ma" xmlns:ns3="http://www.sec.gov/edgar/common_drp" xmlns:ns4="http://www.sec.gov/edgar/mai_drp" targetNamespace="http://www.sec.gov/edgar/maifiler" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.sec.gov/edgar/common" schemaLocation="eis_Common.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/common_ma" schemaLocation="eis_Common_MA.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/common_drp" schemaLocation="eis_Common_DRP.xsd"/>
+	<xs:import namespace="http://www.sec.gov/edgar/mai_drp" schemaLocation="eis_MA_I_DRP.xsd"/>
+	<!-- Begin HEADER_DATA -->
+	<xs:simpleType name="SUBMISSION_TYPE">
+		<xs:annotation>
+			<xs:documentation>
+            Type of submission you are filing.  Choose a value from the appropriate family of
+            Submission Types.  
+            </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="MA-I"/>
+			<xs:enumeration value="MA-I-A"/>
+			<xs:enumeration value="MA-I/A"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HEADER_DATA">
+		<xs:sequence>
+			<xs:element name="submissionType" type="SUBMISSION_TYPE"/>
+			<xs:element name="filerInfo" type="ns2:HEADER_DATA"/>
+			<xs:element name="period" type="ns1:YEAR_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- End HEADER_DATA -->
+	<xs:simpleType name="DATE_TYPE_2">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{1,2}-\d{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NUMBER_TYPE">
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="2"/>
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HAS_FILED_MA">
+		<xs:sequence>
+			<xs:element name="filingDate" type="ns1:DATE_TYPE"/>
+			<xs:element name="cik" type="ns1:CIK_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_FILED_INFO">
+		<xs:choice>
+			<xs:element name="hasFiled" type="HAS_FILED_MA"/>
+			<xs:element name="explanation" type="ns2:STRING_256_TYPE"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="MA_REGISTRATION">
+		<xs:choice>
+			<xs:element name="secRegistration" type="ns2:REG_TYPE_1"/>
+			<xs:element name="notSecRegistered" type="FORM_FILED_INFO"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="FOREIGN_REGISTRATION">
+		<xs:sequence>
+			<xs:element name="name" type="ns1:STRING_150_TYPE"/>
+			<xs:element name="state" type="ns2:US_IAR_STATE_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="LOCATED_AT_SUPERVISED_FROM">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LOCATED"/>
+			<xs:enumeration value="SUPERVISED"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ADDRESS_TYPE_1">
+		<xs:sequence>
+			<xs:element name="startDate" type="DATE_TYPE_2"/>
+			<xs:element name="endDate" type="DATE_TYPE_2" minOccurs="0"/>
+			<xs:element name="addressInfo" type="ns1:ADDRESS_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDRESS_TYPE_2">
+		<xs:sequence>
+			<xs:element name="locationInfo" type="LOCATED_AT_SUPERVISED_FROM" maxOccurs="2"/>
+			<xs:element name="startDate" type="ns1:DATE_TYPE"/>
+			<xs:element name="addressInfo" type="ns2:ADDRESS_TYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ADDRESS_TYPE_3">
+		<xs:sequence>
+			<xs:element name="city" type="ns1:STRING_30_TYPE"/>
+			<xs:element name="stateOrCountry" type="ns1:STATE_COUNTRY_TYPE"/>
+			<xs:element name="zipCode" type="ns1:ZIP_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- The MUNICIPAL_ADVISOR_OFFICES element may be removed if the municipal advisor office address isn't repeatable -->
+	<xs:complexType name="OTHER_NAMES">
+		<xs:sequence>
+			<xs:element name="otherName" type="ns2:INDIVIDUAL_NAME_TYPE" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PRIOR_ADDRESSES">
+		<xs:sequence>
+			<xs:element name="priorAddress" type="ADDRESS_TYPE_1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RESIDENTIAL_HISTORY">
+		<xs:sequence>
+			<xs:element name="currentAddress" type="ADDRESS_TYPE_1" minOccurs="0"/>
+			<xs:element name="priorAddresses" type="PRIOR_ADDRESSES" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EMPLOYMENT_INFO">
+		<xs:sequence>
+			<xs:element name="startDate" type="DATE_TYPE_2"/>
+			<xs:element name="endDate" type="DATE_TYPE_2" minOccurs="0"/>
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="addressInfo" type="ADDRESS_TYPE_3"/>
+			<xs:element name="isRelatedToMunicipalAdvisor" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isRelatedToInvestment" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="positionDescription" type="ns2:STRING_256_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PRIOR_EMPLOYERS">
+		<xs:sequence>
+			<xs:element name="priorEmployer" type="EMPLOYMENT_INFO" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EMPLOYMENT_HISTORY">
+		<xs:sequence>
+			<xs:element name="currentEmployer" type="EMPLOYMENT_INFO"/>
+			<xs:element name="priorEmployers" type="PRIOR_EMPLOYERS" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="NO_OF_HOURS">
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="3"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="745"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OTHER_BUSINESS">
+		<xs:sequence>
+			<xs:element name="startDate" type="DATE_TYPE_2"/>
+			<xs:element name="name" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="addressInfo" type="ns1:ADDRESS_TYPE"/>
+			<xs:element name="isRelatedToMunicipalAdvisor" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isRelatedToInvestment" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="natureOfBusiness" type="ns2:STRING_256_TYPE"/>
+			<xs:element name="positionDescription" type="ns1:STRING_1K_TYPE"/>
+			<xs:element name="approximateHoursOrMonths" type="NO_OF_HOURS"/>
+			<xs:element name="dutiesDescription" type="ns2:STRING_3K_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OTHER_BUSINESSES">
+		<xs:sequence>
+			<xs:element name="otherBusiness" type="OTHER_BUSINESS" maxOccurs="15"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CRIMINAL_DISCLOSURE_QUESTION">
+		<xs:sequence>
+			<xs:element name="criminalDisclosureCommonQuestion" type="ns2:CRIMINAL_ACTION_DISCLOSURE"/>
+			<xs:element name="isConvictedOfMisdemeanor" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isChargedWithMisdemeanor" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isOrgConvictedOfMisdemeanor" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isOrgChargedWithMisdemeanor" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="REGULATORY_DISCLOSURE_QUESTION">
+		<xs:sequence>
+			<xs:element name="regulatoryDisclosureCommonQuestion" type="ns2:REGULATORY_ACTION_DISCLOSURE"/>
+			<xs:element name="isViolatedSecurityAct" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isWillFullyAided" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFailedToSupervise" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFoundWillFullyAided" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isAssociationBared" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFinalOrder" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isWillFullyViolatedSecurityAct" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFailedResonably" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="INVESTIGATION_DISCLOSURE_QUESTION">
+		<xs:sequence>
+			<xs:element name="isInvestigated" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JUDGMENT_LIEN_DISCLOSURE_QUESTION">
+		<xs:sequence>
+			<xs:element name="isLienAgainst" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- We can have common Disclosure question section -->
+	<xs:complexType name="DISCLOSURE_QUESTIONS">
+		<xs:sequence>
+			<xs:element name="criminalDisclosure" type="CRIMINAL_DISCLOSURE_QUESTION"/>
+			<xs:element name="regulatoryDisclosure" type="REGULATORY_DISCLOSURE_QUESTION"/>
+			<xs:element name="investigationDisclosure" type="INVESTIGATION_DISCLOSURE_QUESTION"/>
+			<xs:element name="civilDisclosure" type="ns2:CIVIL_JUDICIAL_ACTION_DISCLOSURE"/>
+			<xs:element name="complaintDisclosure" type="CUSTOMER_COMPLAINT_DISCLOSURE"/>
+			<xs:element name="terminationDisclosure" type="TERMINATION_DISCLOSURE"/>
+			<xs:element name="financialDisclosure" type="FINANCIAL_JUDGEMENT_DISCLOSURE"/>
+			<xs:element name="judgmentLienDisclosure" type="JUDGMENT_LIEN_DISCLOSURE_QUESTION"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FINANCIAL_JUDGEMENT_DISCLOSURE">
+		<xs:sequence>
+			<xs:element name="isCompromised" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isBankruptcyPetition" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isTrusteeApointed" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isBondRevoked" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TERMINATION_DISCLOSURE">
+		<xs:sequence>
+			<xs:element name="isViloatedIndustryStandard" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isInvolvedInFraud" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFailedToSupervise" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CUSTOMER_COMPLAINT_DISCLOSURE">
+		<xs:sequence>
+			<xs:element name="isComplaintPending" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isComplaintSettled" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFraudCasePending" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFraudCaseResultedAward" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="isFraudCaseSettled" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MAI_FILER_TYPE">
+		<xs:sequence>
+			<xs:element name="filerId" type="ns1:CIK_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MUNICIPAL_ADVISORY_FIRM_INFORMATION">
+		<xs:sequence>
+			<xs:element name="municipalFiler" type="MAI_FILER_TYPE" minOccurs="0"/>
+			<xs:element name="municipalFirmName" type="ns1:ENTITY_NAME_TYPE"/>
+			<xs:element name="municipalDbaName" type="ns2:STRING_256_TYPE" minOccurs="0"/>
+			<xs:element name="recentEmploymentCommencedDate" type="ns1:DATE_TYPE"/>
+			<xs:element name="isIndependentRelatioship" type="ns1:YES_NO_TYPE"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MUNICIPAL_ADVISORY_OFFICES">
+		<xs:sequence>
+			<xs:element name="advisorOffice" type="ADDRESS_TYPE_2" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MUNICIPAL_ADVISORY_FIRM_INFO">
+		<xs:sequence>
+			<xs:element name="municipalFirm" type="MUNICIPAL_ADVISORY_FIRM_INFORMATION"/>
+			<xs:element name="maRegistration" type="MA_REGISTRATION"/>
+			<xs:element name="advisorOffices" type="MUNICIPAL_ADVISORY_OFFICES" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MUNICIPAL_ADVISORY_FIRM_INFO_LIST">
+		<xs:sequence>
+			<xs:element name="municipalAdvisorOffice" type="MUNICIPAL_ADVISORY_FIRM_INFO" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FORM_DATA">
+		<xs:sequence>
+			<!--  isAmendent & previousAccessionNumber elements only applicable to MA-I-A submissions -->
+			<xs:element name="isAmendment" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="previousAccessionNumber" type="ns1:ACCESSION_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="isIndividual" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="applicantName" type="ns2:INDIVIDUAL_NAME_TYPE"/>
+			<xs:element name="applicantCrdNum" type="ns2:CRD_NUMBER_TYPE" minOccurs="0"/>
+			<xs:element name="applicantSsn" type="ns2:SS_NUM_TYPE" minOccurs="0"/>
+			<xs:element name="hasMoreThanOneAdvisoryFirms" type="ns1:YES_NO_TYPE" minOccurs="0"/>
+			<xs:element name="noOfAdvisoryFirms" type="NUMBER_TYPE"/>
+			<!-- The municipalAdvisorOffice may be repeatable. If it is then use municipalAdvisorOffices instead -->
+			<xs:element name="municipalAdvisorOffices" type="MUNICIPAL_ADVISORY_FIRM_INFO_LIST" minOccurs="0"/>
+			<xs:element name="otherNames" type="OTHER_NAMES" minOccurs="0"/>
+			<xs:element name="residentialHistory" type="RESIDENTIAL_HISTORY"/>
+			<xs:element name="employmentHistory" type="EMPLOYMENT_HISTORY"/>
+			<xs:element name="isEngagedInOtherBusiness" type="ns1:YES_NO_TYPE"/>
+			<xs:element name="otherBusinesses" type="OTHER_BUSINESSES" minOccurs="0"/>
+			<xs:element name="disclosureQuestions" type="DISCLOSURE_QUESTIONS"/>
+			<xs:element name="signatureInfo" type="ns2:SIGNATURE_SELF_CERTIFICATION_EXECUTION" minOccurs="0"/>
+			<xs:element name="selfCertification" type="ns2:SIGNATURE_SELF_CERTIFICATION_EXECUTION" minOccurs="0"/>
+			<xs:element name="drpInfo" type="ns4:DRP_INFO_TYPE" minOccurs="0"/>
+			<xs:element name="documents" type="ns1:EDGAR_DOCUMENT_TYPE" minOccurs="0" maxOccurs="500"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="edgarSubmission">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="schemaVersion" type="ns1:SCHEMA_VERSION_TYPE" minOccurs="0"/>
+				<xs:element name="headerData" type="HEADER_DATA"/>
+				<xs:element name="formData" type="FORM_DATA"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

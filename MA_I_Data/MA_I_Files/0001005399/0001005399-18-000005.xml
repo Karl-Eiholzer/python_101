@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edgarSubmission xmlns="http://www.sec.gov/edgar/mafiler" xmlns:com="http://www.sec.gov/edgar/common_ma" xmlns:com1="http://www.sec.gov/edgar/common">
+  <headerData>
+    <submissionType>MA-A</submissionType>
+    <filerInfo>
+      <com:filer>
+        <com1:filerId>0001005399</com1:filerId>
+        <com1:filerCcc>XXXXXXXX</com1:filerCcc>
+      </com:filer>
+      <com:contact>
+        <com1:name>Gregg Nelson</com1:name>
+        <com1:phoneNumber>9085319223</com1:phoneNumber>
+      </com:contact>
+      <com:contactEmail>gnelson@realvestcapital.com</com:contactEmail>
+      <com:notifications>
+        <com1:internetNotificationAddress>gsandler@realvestcapital.com</com1:internetNotificationAddress>
+      </com:notifications>
+    </filerInfo>
+  </headerData>
+  <formData>
+    <fiscalYearEnd>12-31-2017</fiscalYearEnd>
+    <hasChanges>Y</hasChanges>
+    <firmName>A.BRIDGE REALVEST SECURITIES CORPORATION</firmName>
+    <firmCrdNumber>000040001</firmCrdNumber>
+    <irsNum>13-3844746</irsNum>
+    <registrations>
+      <maTregistration>
+        <com:fileNumber>866-00896-00</com:fileNumber>
+      </maTregistration>
+      <baseRegistrations>
+        <maRegistration>
+          <com:fileNumber>867-01291</com:fileNumber>
+        </maRegistration>
+        <baseRegistrations>
+          <com:bdRegistration>
+            <com:fileNumber>008-48937</com:fileNumber>
+            <com:crdNumber>000040001</com:crdNumber>
+          </com:bdRegistration>
+        </baseRegistrations>
+      </baseRegistrations>
+    </registrations>
+    <principalOfficeAddress>
+      <addressInfo>
+        <com:address>
+          <com1:street1>50 TICE BLVD</com1:street1>
+          <com1:street2>SUITE 340</com1:street2>
+          <com1:city>WOODCLIFF LAKE</com1:city>
+          <com1:stateOrCountry>NJ</com1:stateOrCountry>
+          <com1:zipCode>07677</com1:zipCode>
+        </com:address>
+      </addressInfo>
+      <phoneNumber>2017469292</phoneNumber>
+      <faxNumber>2014262374</faxNumber>
+    </principalOfficeAddress>
+    <mailingAddressDifferent>N</mailingAddressDifferent>
+    <mailingAddress>
+      <com:address>
+        <com1:street1>50 TICE BLVD, SUITE 340</com1:street1>
+        <com1:city>WOODCLIFF LAKE</com1:city>
+        <com1:stateOrCountry>NJ</com1:stateOrCountry>
+        <com1:zipCode>07677</com1:zipCode>
+      </com:address>
+    </mailingAddress>
+    <cco>
+      <name>
+        <com:firstName>Gilbert</com:firstName>
+        <com:middleName>NMN</com:middleName>
+        <com:lastName>Sandler</com:lastName>
+      </name>
+      <address>
+        <com:address>
+          <com1:street1>50 Tice Blvd</com1:street1>
+          <com1:street2>Suite 340</com1:street2>
+          <com1:city>Woodcliff Lake</com1:city>
+          <com1:stateOrCountry>NJ</com1:stateOrCountry>
+          <com1:zipCode>07677</com1:zipCode>
+        </com:address>
+      </address>
+      <phoneNumber>2017469292</phoneNumber>
+      <faxNumber>2014262374</faxNumber>
+      <email>gsandler@realvestcapital.com</email>
+    </cco>
+    <contactPerson>
+      <name>
+        <com:firstName>Gregory</com:firstName>
+        <com:middleName>M</com:middleName>
+        <com:lastName>Nelson</com:lastName>
+      </name>
+      <address>
+        <com:address>
+          <com1:street1>50 Tice Blvd</com1:street1>
+          <com1:street2>Suite 340</com1:street2>
+          <com1:city>Woodcliff Lake</com1:city>
+          <com1:stateOrCountry>NJ</com1:stateOrCountry>
+          <com1:zipCode>07677</com1:zipCode>
+        </com:address>
+      </address>
+      <phoneNumber>9085319223</phoneNumber>
+      <faxNumber>2014262374</faxNumber>
+      <email>gnelson@realvestcapital.com</email>
+    </contactPerson>
+    <formOfOrganization>
+      <formOrgType>
+        <formOrgTypes>
+          <Corporation/>
+        </formOrgTypes>
+      </formOrgType>
+    </formOfOrganization>
+    <monthOfFiscalYearEnd>December</monthOfFiscalYearEnd>
+    <organizedJurisdiction>
+      <com1:stateOrCountry>NJ</com1:stateOrCountry>
+    </organizedJurisdiction>
+    <dateOfOrganization>04-20-1996</dateOfOrganization>
+    <isPrcApplicant>N</isPrcApplicant>
+    <numberOfEmployees>3</numberOfEmployees>
+    <employeesEngagedInMAA>3</employeesEngagedInMAA>
+    <maaEmployeesRegBD>3</maaEmployeesRegBD>
+    <maaRegIA>0</maaRegIA>
+    <numberOfSolicitingFirms>0</numberOfSolicitingFirms>
+    <clientsServedAsMA>7</clientsServedAsMA>
+    <typesOfClients>
+      <typesOfClients>
+        <clientTypes>Municipal Entities</clientTypes>
+        <clientTypes>Non-profit organizations</clientTypes>
+        <clientTypes>Corporations or other businesses</clientTypes>
+      </typesOfClients>
+    </typesOfClients>
+    <numberOfSolicitedME>0</numberOfSolicitedME>
+    <numberOfSolicitedOP>0</numberOfSolicitedOP>
+    <totalNumberOfSolicitedMEAndOP>0</totalNumberOfSolicitedMEAndOP>
+    <typesOfSolicitedPersons>
+      <solicitationPersonTypes>
+        <solicitationPersonTypes>Colleges</solicitationPersonTypes>
+        <solicitationPersonTypes>Other</solicitationPersonTypes>
+      </solicitationPersonTypes>
+      <spOtherDescription>nursing homes</spOtherDescription>
+    </typesOfSolicitedPersons>
+    <meOrOPCompensationTypes>
+      <compensationTypes>
+        <compensationTypes>Hourly Charges</compensationTypes>
+        <compensationTypes>Fixed Fees</compensationTypes>
+        <compensationTypes>Contingent Fees</compensationTypes>
+      </compensationTypes>
+    </meOrOPCompensationTypes>
+    <solicitationCompensationTypes>
+      <compensationTypes>
+        <compensationTypes>Not Applicable</compensationTypes>
+      </compensationTypes>
+    </solicitationCompensationTypes>
+    <engagedActivities>
+      <engagedActivityTypes>
+        <engagedActivityType>Advice Insurance Of MS</engagedActivityType>
+        <engagedActivityType>Advice Investment Of Proceeds MS</engagedActivityType>
+        <engagedActivityType>Advice ME Investments</engagedActivityType>
+        <engagedActivityType>Advice Guaranteed IC</engagedActivityType>
+        <engagedActivityType>Advice Use Of MD</engagedActivityType>
+        <engagedActivityType>Advice On Selection</engagedActivityType>
+      </engagedActivityTypes>
+    </engagedActivities>
+    <otherActivities>
+      <brokerDealers>
+        <isActivelyEngaged>Y</isActivelyEngaged>
+        <isPrimaryBusiness>Y</isPrimaryBusiness>
+      </brokerDealers>
+    </otherActivities>
+    <isEngagedInOtherNonMAABusiness>N</isEngagedInOtherNonMAABusiness>
+    <fiaAssociatedPersonsTypes>
+      <fiaAPTypes>Broker-dealer municipal securities dealer or government securities broker or dealer</fiaAPTypes>
+    </fiaAssociatedPersonsTypes>
+    <totalFIAAssociatedPersons>3</totalFIAAssociatedPersons>
+    <fiaAssociatedPersons>
+      <fiaAssociatedPerson>
+        <type>
+          <com:amend>Amend</com:amend>
+        </type>
+        <apTypes>
+          <fiaAPTypes>Broker-dealer municipal securities dealer or government securities broker or dealer</fiaAPTypes>
+        </apTypes>
+        <legalName>Gilbert Sandler</legalName>
+        <primaryBusinessName>A.Bridge-Realvest Securities Corporation</primaryBusinessName>
+        <otherMunicipalAdviser>
+          <isControlOrControlled>Y</isControlOrControlled>
+          <isUnderCommonControl>Y</isUnderCommonControl>
+          <isRegisteredWithFFRA>N</isRegisteredWithFFRA>
+        </otherMunicipalAdviser>
+      </fiaAssociatedPerson>
+      <fiaAssociatedPerson>
+        <type>
+          <com:amend>Amend</com:amend>
+        </type>
+        <apTypes>
+          <fiaAPTypes>Broker-dealer municipal securities dealer or government securities broker or dealer</fiaAPTypes>
+        </apTypes>
+        <legalName>Gregory Nelson</legalName>
+        <primaryBusinessName>A.Bridge-Realvest Securities Corporation</primaryBusinessName>
+        <otherMunicipalAdviser>
+          <isControlOrControlled>N</isControlOrControlled>
+          <isUnderCommonControl>N</isUnderCommonControl>
+          <isRegisteredWithFFRA>N</isRegisteredWithFFRA>
+        </otherMunicipalAdviser>
+      </fiaAssociatedPerson>
+      <fiaAssociatedPerson>
+        <type>
+          <com:newAdd>NewAdd</com:newAdd>
+        </type>
+        <apTypes>
+          <fiaAPTypes>Broker-dealer municipal securities dealer or government securities broker or dealer</fiaAPTypes>
+        </apTypes>
+        <legalName>Sunil Aggarwal</legalName>
+        <primaryBusinessName>Sunil Aggarwal</primaryBusinessName>
+        <otherMunicipalAdviser>
+          <isControlOrControlled>N</isControlOrControlled>
+          <isUnderCommonControl>N</isUnderCommonControl>
+          <isRegisteredWithFFRA>N</isRegisteredWithFFRA>
+        </otherMunicipalAdviser>
+      </fiaAssociatedPerson>
+    </fiaAssociatedPersons>
+    <participationInterestMACT>
+      <mactBuySellFromClients>N</mactBuySellFromClients>
+      <mactBuySellRecommendToClients>N</mactBuySellRecommendToClients>
+      <mactEnterDerivativesWithClients>N</mactEnterDerivativesWithClients>
+      <mactRecommendOwnedInterestToClients>N</mactRecommendOwnedInterestToClients>
+      <mactRecommendToClientsServing>N</mactRecommendToClientsServing>
+      <mactRecommendToClientsHavingOtherSalesInterest>N</mactRecommendToClientsHavingOtherSalesInterest>
+      <mactDiscAuthBuySellAsMAA>N</mactDiscAuthBuySellAsMAA>
+      <mactDiscAuthBuySell>N</mactDiscAuthBuySell>
+      <mactDiscAuthDetermineBrokerDealer>N</mactDiscAuthDetermineBrokerDealer>
+      <mactDiscAuthDetermineCommissionToBrokerDealer>N</mactDiscAuthDetermineCommissionToBrokerDealer>
+      <mactRecommendBrokerDealerToClient>N</mactRecommendBrokerDealerToClient>
+      <mactCompensateForReferrals>N</mactCompensateForReferrals>
+      <mactReceiveCompensationForReferrals>N</mactReceiveCompensationForReferrals>
+    </participationInterestMACT>
+    <disclosureAnswers>
+      <criminalDisclosure>
+        <com:isConvictedOfFelony>N</com:isConvictedOfFelony>
+        <com:isChargedWithFelony>N</com:isChargedWithFelony>
+        <com:isOrgConvictedOfFelony>N</com:isOrgConvictedOfFelony>
+        <com:isOrgChargedWithFelony>N</com:isOrgChargedWithFelony>
+      </criminalDisclosure>
+      <regulatoryDisclosure>
+        <com:isMadeFalseStatement>N</com:isMadeFalseStatement>
+        <com:isViolatedRegulation>N</com:isViolatedRegulation>
+        <com:isCauseOfDenial>N</com:isCauseOfDenial>
+        <com:isOrderAgainst>N</com:isOrderAgainst>
+        <com:isImposedPenalty>N</com:isImposedPenalty>
+        <com:isUnEthical>N</com:isUnEthical>
+        <com:isFoundInViolationOfRegulation>N</com:isFoundInViolationOfRegulation>
+        <com:isFoundInCauseOfDenial>N</com:isFoundInCauseOfDenial>
+        <com:isOrderAgainstActivity>N</com:isOrderAgainstActivity>
+        <com:isDeniedLicense>N</com:isDeniedLicense>
+        <com:isFoundMadeFalseStatement>N</com:isFoundMadeFalseStatement>
+        <com:isFoundInViolationOfRules>N</com:isFoundInViolationOfRules>
+        <com:isFoundInCauseOfSuspension>N</com:isFoundInCauseOfSuspension>
+        <com:isDiscipliend>N</com:isDiscipliend>
+        <com:isAuthorizedToActAttorney>N</com:isAuthorizedToActAttorney>
+        <com:isRegulatoryComplaint>N</com:isRegulatoryComplaint>
+      </regulatoryDisclosure>
+      <civilDisclosure>
+        <com:isEnjoined>N</com:isEnjoined>
+        <com:isFoundInViolationOfRegulation>N</com:isFoundInViolationOfRegulation>
+        <com:isDismissed>N</com:isDismissed>
+        <com:isNamedInCivilProceeding>N</com:isNamedInCivilProceeding>
+      </civilDisclosure>
+    </disclosureAnswers>
+    <hasAnnualReceiptsLessThan7Million>Y</hasAnnualReceiptsLessThan7Million>
+    <isAffiliatedWithReceiptsMoreThan7Million>N</isAffiliatedWithReceiptsMoreThan7Million>
+    <scheduleA>
+      <persons>
+        <person>
+          <name>
+            <com:firstName>Gilbert</com:firstName>
+            <com:middleName>NMN</com:middleName>
+            <com:lastName>Sandler</com:lastName>
+          </name>
+          <baseInformation>
+            <titleStatus>President</titleStatus>
+            <statusAcquired>04-20-1996</statusAcquired>
+            <ownershipCode>E</ownershipCode>
+            <isControPerson>Y</isControPerson>
+            <crdNumber>002696056</crdNumber>
+          </baseInformation>
+        </person>
+        <person>
+          <name>
+            <com:firstName>Gregory</com:firstName>
+            <com:middleName>Michael</com:middleName>
+            <com:lastName>Nelson</com:lastName>
+          </name>
+          <baseInformation>
+            <titleStatus>Senior Vice President</titleStatus>
+            <statusAcquired>07-07-1996</statusAcquired>
+            <ownershipCode>NA</ownershipCode>
+            <isControPerson>N</isControPerson>
+            <crdNumber>001443604</crdNumber>
+          </baseInformation>
+        </person>
+      </persons>
+    </scheduleA>
+    <scheduleC>
+      <directPersons>
+        <person>
+          <type>
+            <com:amend>Amend</com:amend>
+          </type>
+          <baseInformation>
+            <name>
+              <com:firstName>Gilbert</com:firstName>
+              <com:middleName>NMN</com:middleName>
+              <com:lastName>Sandler</com:lastName>
+            </name>
+            <baseInformation>
+              <titleStatus>President</titleStatus>
+              <statusAcquired>04-20-1996</statusAcquired>
+              <ownershipCode>E</ownershipCode>
+              <isControPerson>Y</isControPerson>
+              <crdNumber>002696056</crdNumber>
+            </baseInformation>
+          </baseInformation>
+        </person>
+        <person>
+          <type>
+            <com:amend>Amend</com:amend>
+          </type>
+          <baseInformation>
+            <name>
+              <com:firstName>Gregory</com:firstName>
+              <com:middleName>Michael</com:middleName>
+              <com:lastName>Nelson</com:lastName>
+            </name>
+            <baseInformation>
+              <titleStatus>Senior Vice President</titleStatus>
+              <statusAcquired>07-07-1996</statusAcquired>
+              <ownershipCode>NA</ownershipCode>
+              <isControPerson>N</isControPerson>
+              <crdNumber>001443604</crdNumber>
+            </baseInformation>
+          </baseInformation>
+        </person>
+      </directPersons>
+    </scheduleC>
+    <maExecutionPage>
+      <signature>
+        <com1:signature>Gregg Nelson</com1:signature>
+        <com1:signerName>Gregg Nelson</com1:signerName>
+        <com1:title>Senior Vice President</com1:title>
+        <com1:date>05-30-2018</com1:date>
+      </signature>
+      <crdNumber>000040001</crdNumber>
+    </maExecutionPage>
+    <controls>
+      <isSolePropietor>N</isSolePropietor>
+      <hasNameChange>N</hasNameChange>
+      <hasDBAName>N</hasDBAName>
+      <hasPreviousDBAName>N</hasPreviousDBAName>
+      <hasAdditionalDBANames>N</hasAdditionalDBANames>
+      <hasMATReg>Y</hasMATReg>
+      <additionalRegs>N</additionalRegs>
+      <additionalOffices>N</additionalOffices>
+      <hasMailingAddress>N</hasMailingAddress>
+      <hasAdditionalWebsites>N</hasAdditionalWebsites>
+      <hasBooksRecords>N</hasBooksRecords>
+      <isRegisteredFFRA>N</isRegisteredFFRA>
+      <isAffiliatedOtherBus>N</isAffiliatedOtherBus>
+      <independentBusinessEmployee>N</independentBusinessEmployee>
+      <receiveCompensationForMAAFromOtherClients>N</receiveCompensationForMAAFromOtherClients>
+      <isSucceedingApplicant>N</isSucceedingApplicant>
+      <isCPForApplicantPolicy>N</isCPForApplicantPolicy>
+      <isPRCompanyUnder1215>N</isPRCompanyUnder1215>
+      <hasScheduleB>N</hasScheduleB>
+      <isSection12Or15ReportingCompany>N</isSection12Or15ReportingCompany>
+      <isOtherNonMAABuisinesssPrimary>N</isOtherNonMAABuisinesssPrimary>
+    </controls>
+  </formData>
+</edgarSubmission>
