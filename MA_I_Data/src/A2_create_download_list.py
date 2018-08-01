@@ -5,7 +5,7 @@ from pathlib import Path
 from functions.edgar_page_handling import edgar_MA_I_exists, get_url_list
 
 '''set file location'''
-url_list_file_location = Path("C:\Projects\Python\MA_I_Data\data")
+url_list_file_location = Path("C:/Users/keiholzer/Documents/GitHub/python_101/MA_I_Data/data")
 url_list_file_name = "url_list.csv"
 
 

@@ -1,21 +1,24 @@
 def edgar_MA_I_exists1(xml_url):
     'Return false if the xml page is not found'
-    import urllib.request
+    import urllib.request    
     print(xml_url)    
     return
 
 def edgar_MA_I_exists(xml_url):
     'Return false if the xml page is not found'
-    import urllib.request
-    'REQUEST_TIMEOUT = 10'
-    try:
-        return_code = urllib.request.urlopen(xml_url)
-        'return_code = urllib.request.urlopen(xml_url).code'
-    except urllib.error.HTTPError as http_err:
-        print(xml_url + "|" + "Error: %s" % http_err)
-        return None
-    return_code = urllib.request.urlopen(xml_url).code
-    print(xml_url + "|" + str(return_code))
+    import requests
+    import xml.etree.ElementTree as ET
+    
+    resp = requests.get(xml_url)
+    return_code = resp.status_code
+
+    if return_code == 200:
+        root = ET.fromstring(resp.content)
+        file_type = root[0][0].text  
+    else:
+        file_type = "Bad URL" 
+    
+    print(xml_url + "|" + str(return_code) + "|" + file_type)
     return
 
 
