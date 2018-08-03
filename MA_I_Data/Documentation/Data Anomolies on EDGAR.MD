@@ -39,11 +39,13 @@ The problems identified below may require special handling by the code.
   https://www.sec.gov/Archives/edgar/data/1603788/000094787117000875/primary_doc.xml
 
 
+  Example 6: 0001614281 and 0001618676
 
+  https://www.sec.gov/Archives/edgar/data/1614281/000161867617000016/primary_doc.xml
   
 
 
-**2. Certain companies have Accession Number filing systems that do not follow the standard. You cannot assume the first filing for the year was anywhere near the number 1.
+**2. Certain companies have Accession Number filing systems that do not follow the standard. You cannot assume the first filing for the year was anywhere near the number 1.**
 
   Example 1: 0001663526 has the following number assigned to the first filings of the year:
    2016: 012963
