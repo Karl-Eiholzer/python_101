@@ -5,7 +5,7 @@ def edgar_MA_I_exists1(xml_url):
     return
 
 def edgar_MA_I_exists(xml_url):
-    'Return false if the xml page is not found'
+    'Return row of text describing the results'
     import requests
     import xml.etree.ElementTree as ET
     
@@ -33,4 +33,29 @@ def get_url_list(location):
         out_list.append(row)     
     return(out_list)
     infile.close()
+
+def get_868_number(cik_number):
+    'return the 868 number associated with MA-I filings'
+    import requests
+    import re
+    cik_url = ("https://www.sec.gov/cgi-bin/browse-edgar?CIK=" + cik_number + "&owner=exclude&action=getcompany")
+    pattern = re.compile(r"868-\d{5}")
+    
+    resp = requests.get(cik_url)
+    return_code = resp.status_code
+
+    if return_code == 200:
+        if "No matching CIK." in resp.text:
+            file_type = "CIK Not Found"
+        else:
+            if pattern.search(resp.text) != None:
+                file_type = "868 Number Found" 
+            else:
+                file_type = "868 Number Not Found" 
+    else:
+        file_type = "Bad URL" 
+    
+    print(cik_url + "|" + file_type + resp.text)
+    return
+
 
