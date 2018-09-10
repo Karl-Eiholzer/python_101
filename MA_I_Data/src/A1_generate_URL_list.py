@@ -1,7 +1,7 @@
 '''Import necessary libraries'''
 
 from pathlib import Path
-from functions.edgar_page_handling import get_868_number
+from functions.edgar_page_handling import get_accession_numbers
 
 '''set file location'''
 url_list_file_location = Path("C:/Users/keiholzer/Documents/GitHub/python_101/MA_I_Data/data")
@@ -17,7 +17,7 @@ def create_master():
     print('')
     CIK_number = input('Enter CIK: ')
     print('')
-    get_868_number(CIK_number)
+    get_accession_numbers(CIK_number)
         
 while run == 1:
     print('')

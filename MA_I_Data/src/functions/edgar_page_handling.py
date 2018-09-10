@@ -34,6 +34,21 @@ def get_url_list(location):
     return(out_list)
     infile.close()
 
+def get_url_list2(location):
+    import csv 
+    prefix = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="
+    suffix = "&type=&dateb=&owner=exclude&count=1000"
+    out_list = list()
+    with open(location, "r") as infile:
+      reader = csv.reader(infile)
+      next(reader, None)  # skip the headers
+      for row in reader:
+        # process each row
+        created_URL = (prefix + str().join(row) + suffix)
+        out_list.append(created_URL)     
+    return(out_list)
+    infile.close()
+
 def get_868_number(cik_number):
     'return the 868 number associated with MA-I filings'
     import requests
@@ -59,3 +74,16 @@ def get_868_number(cik_number):
     return
 
 
+def get_accession_numbers(cik_number):
+    'return the 868 number associated with MA-I filings'
+    import requests
+    from html.parser import HTMLParser
+    
+    cik_url = ("https://www.sec.gov/cgi-bin/browse-edgar?CIK=" + cik_number + "&owner=exclude&action=getcompany")
+    
+    resp = requests.get(cik_url)
+    return_code = resp.status_code
+    edgar_page = HTMLParser.feed(resp)
+           
+    print(cik_url + "|" + edgar_page)
+    return
